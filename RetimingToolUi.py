@@ -9,6 +9,8 @@ import maya.mel as mel
 import maya.OpenMayaUI as omui
 
 
+import Logic
+
 class RetimingToolUi(QtWidgets.QDialog):
 
     WINDOW_TITLE = "Retiming Tool"
@@ -20,9 +22,7 @@ class RetimingToolUi(QtWidgets.QDialog):
 
     @classmethod
     def maya_main_window(cls):
-        """
-        Return the Maya main window widget as a Python object
-        """
+
         main_window_ptr = omui.MQtUtil.mainWindow()
         if sys.version_info.major >= 3:
             return wrapInstance(int(main_window_ptr), QtWidgets.QWidget)
@@ -93,8 +93,7 @@ class RetimingToolUi(QtWidgets.QDialog):
         if btn:
             retime_data = btn.property(self.RETIMING_PROPERTY_NAME)
             move_to_next = self.move_to_next_cb.isChecked()
-            #call retime_keys function in utile class
-            print(retime_data[0], retime_data[1], move_to_next)
+            Logic.RetimingToolLogic.retime_keys(retime_data[0], retime_data[1], move_to_next)
 
 
 if __name__ == "__main__":
